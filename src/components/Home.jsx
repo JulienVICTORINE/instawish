@@ -30,6 +30,7 @@ const UserAvatar = styled(Avatar)({
 const Home = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [users, setUsers] = useState([]);
+  const [me, setMe] = useState();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,6 +63,36 @@ const Home = () => {
     fetchUsers();
   }, []);
 
+
+  useEffect(() => {
+    const fetchMe = async() => {
+      try {
+        // Récupérer le token du stockage local
+        const token = localStorage.getItem('Token');
+
+        const urlAPI = axios.create({
+          baseURL: "https://symfony-instawish.formaterz.fr/api/"
+        });
+
+        const response = await urlAPI.get("/me", {
+          headers: {
+            'Authorization': `Bearer ${token}`, // Inclure le token dans l'en-tête
+            'Content-Type': 'application/json',
+          },
+        });
+
+        const data = (response.data);
+        console.log(data);
+        setMe(data);
+      } catch (error) {
+        console.error('Erreur lors de la récupération de l\'utilisateur connecté', error);
+      }
+    };
+
+    // Appel de la fonction pour récupérer les utilisateurs
+    fetchMe();
+  }, []);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -92,7 +123,7 @@ const Home = () => {
 
         <Grid item>
           <RoundedIconButton onClick={handleClick}>
-            <Avatar alt="username" src={"/path/to/your/avatar.jpg"} />
+            <Avatar alt="username" src={"https://symfony-instawish.formaterz.fr"+me.imageUrl} />
           </RoundedIconButton>
           <Menu
             anchorEl={anchorEl}
