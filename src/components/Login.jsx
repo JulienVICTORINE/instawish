@@ -67,7 +67,7 @@ const Login = () => {
 
     return (
         <FormContainer>
-            <Typography variant="h4">InstaWish</Typography>
+            <Typography variant="h4">Instawish</Typography>
 
             <InputLabel for="username">Nom d'utilisateur</InputLabel>
             <TextField

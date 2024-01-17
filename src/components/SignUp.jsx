@@ -85,7 +85,7 @@ const Signup = () => {
 
     return (
         <FormContainer>
-            <Typography variant="h4">InstaWish</Typography>
+            <Typography variant="h4">Instawish</Typography>
 
             <InputLabel htmlFor="username">Nom d'utilisateur</InputLabel>
             <TextField
